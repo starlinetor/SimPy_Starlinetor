@@ -15,3 +15,7 @@ classifiers = [
 
 [project.urls]
 Homepage = "https://github.com/starlinetor/SimPy_Starlinetor"
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
