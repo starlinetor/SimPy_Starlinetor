@@ -2,6 +2,9 @@ import time
 
 class default:
     
+    def start(self):
+        print("Starting stuff")
+    
     def loop(self):
         print("Doing stuff")
     
