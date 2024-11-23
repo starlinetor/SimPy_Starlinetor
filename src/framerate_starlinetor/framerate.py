@@ -126,4 +126,3 @@ class frame_handler :
         #saves the true ending time of the frame
         #this is used to calculate the correct fps
         self.true_end_time  = time.time_ns() / (10 ** 9)    
-        
