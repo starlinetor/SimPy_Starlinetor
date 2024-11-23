@@ -12,23 +12,9 @@ class default:
         print("Done doing stuff")
 
 class frame_handler :   
-    #main class              
-    main_class = None                               #This is the main class instance that the frame_handler will reference
-    
-    #fps data
-    target_fps : int = None                         #fps to achive
-    max_spf : float = None                          #max spf aceptable
-    executions_pf : int = None                      #executions per frame
-    fps_precision: int = None                       #number of terms in calculating the average fps and spf
-    
-    #runtime variables
-    start_time : float = 0                          #start time of a frame
-    end_time : float = 0                            #end time of a frame
-    true_end_time : float = 0                       #true end time of a frame, this counts also the sleep time
-    
-    fps_average : list[int] = None                 #these lists store the recorded fps and sfp to output an average
-    spf_average : list[float] = None
-    
+
+    #class variables
+
     def __init__(
         self,
         main_class = default(),
@@ -50,13 +36,20 @@ class frame_handler :
             - how precise you want the average fps and spf calculation to be. Lower values update faster but are less readble
         """
         #function
-        self.main_class = main_class
-        #fps data
-        self.target_fps = target_fps
-        self.max_spf = 1/target_fps
-        self.executions_pf = executions_pf
-        self.fps_precision = fps_precision 
+        self.main_class = main_class                #This is the main class instance that the frame_handler will reference
         
+        #fps data
+        self.target_fps = target_fps                #fps to achive
+        self.max_spf = 1/target_fps                 #max spf aceptable
+        self.executions_pf = executions_pf          #executions per frame
+        self.fps_precision = fps_precision          #number of terms in calculating the average fps and spf
+        
+        #runtime variables
+        self.start_time : float = 0                      #start time of a frame
+        self.end_time : float = 0                        #end time of a frame
+        self.true_end_time : float = 0                   #true end time of a frame, this counts also the sleep time
+        
+        #these lists store the recorded fps and sfp to output an average
         self.fps_average = [(target_fps) for _ in range(fps_precision)]
         self.spf_average = [(self.max_spf) for _ in range(fps_precision)]
 
