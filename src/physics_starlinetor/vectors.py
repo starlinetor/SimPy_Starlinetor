@@ -2,14 +2,14 @@ import math
 
 class vector2d:
     
-    #data
-    components : dict[str:float] = {}
+    #class variables
     
     #builders
     def __init__(self):
         """
         Empty vector
         """
+        self.components : dict[str:float] = {}
         self.components["x"] = 0
         self.components["y"] = 0
     
@@ -95,7 +95,8 @@ class vector2d:
         Add vector to current vector, they must have the same components
         """
         for key in self.components.keys():
-            self.components[key] += vector.get_components(key)
-            self.components[key] += vector.get_components(key)
+            print(vector.get_components(key)[0])
+            print(self.components[key])
+            self.components[key] += vector.get_components(key)[0]
     
     

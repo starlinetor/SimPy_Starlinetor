@@ -27,3 +27,6 @@ print(speed.components)
 #set module angle
 speed.set_module_angle(10,6)
 print(speed.components)
+
+speed.add(vector2d.from_x_y(5,5))
+print(speed.components)
