@@ -25,6 +25,14 @@ This will execute your code following your taget_fps parameter. But if the code 
 
 # sim_objects_starlinetor
 A bunch of usefull objects for physics simulations.
+Each object has an update() and "yet to be defigned" functions.
+
+### update()
+Used at the end of a simulation step to update the object
+
+### yet to be defigned
+Used during a simulation step. This function dictates what the object does during the simulation step.
+For exemple a proton in this function would apply a force to all other charged particles. 
 
 ## particle
 A basic block for creating any particle simulation. 

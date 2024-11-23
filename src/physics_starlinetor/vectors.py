@@ -89,6 +89,14 @@ class vector2d:
         self.components["y"] = module * math.sin(angle)
         return self
     
+    #set to zero
+    def clear_vector(self):
+        """ 
+        sets all the components to zero
+        """
+        for key in self.components.keys():
+            self.components[key] = 0
+    
     #vectors operation
     def vector_addition(self, vector : 'vector2d'):
         """
