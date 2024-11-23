@@ -37,8 +37,30 @@ class vector2d:
         return vector
     
     #getters
-    def get_components(self,*keys : str) -> list[float]:
+    #components
+    def get_components(self,*keys : str) -> tuple[float]:
+        """
+        Returns the value of the components of the vector\n
+        Uses the name of each component as the parameter
+        """
         components_list : list[float] = []
         for key in keys:
             components_list.append(self.components[key])
-        return components_list
+        return tuple(components_list)
+    
+    #module
+    def get_module(self) -> float:
+        """
+        Returns the module of the vector, works for any n dimension vector
+        """
+        module = math.sqrt(sum(map(lambda i: i * i, self.components.values())))
+        return module
+    
+    def get_angle_2d(self) -> float:
+        """
+        Returns the angle of a 2d vector
+        """
+        angle = math.atan2(self.components["x"],self.components["y"])
+    
+    def set_components(self):
+        pass
