@@ -28,5 +28,8 @@ print(speed.components)
 speed.set_module_angle(10,6)
 print(speed.components)
 
-speed.add(vector2d.from_x_y(5,5))
+speed.vector_addition(vector2d.from_x_y(5,5))
+print(speed.components)
+
+speed.scalar_multiplication(10)
 print(speed.components)
