@@ -60,7 +60,22 @@ class vector2d:
         """
         Returns the angle of a 2d vector
         """
-        angle = math.atan2(self.components["x"],self.components["y"])
+        #atan2 is already robust against division by zero
+        angle = math.atan2(self.components["y"],self.components["x"])
+        return angle
     
-    def set_components(self):
-        pass
+    def set_components(self,*keys_values : tuple[str | float]):
+        """
+        Sets the components of the vector
+        ## parameters
+        ### keys_values : tuple 
+        first value is the key of a component\n
+        second value is the value of the component
+        """
+        
+        for x,y in keys_values:
+            if x not in self.components.keys():
+                raise ValueError(f"{x} is not a component in the vector")
+            if not isinstance(y,float) and not isinstance(y,int):
+                raise ValueError(f"{y} should be type float or int not {type(y)}")
+            self.components[x] = y
