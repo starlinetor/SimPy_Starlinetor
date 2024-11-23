@@ -89,14 +89,17 @@ class vector2d:
         self.components["y"] = module * math.sin(angle)
         return self
     
-    #math functions
-    def add(self,vector : 'vector2d'):
+    #vectors operation
+    def vector_addition(self, vector : 'vector2d'):
         """
         Add vector to current vector, they must have the same components
         """
         for key in self.components.keys():
-            print(vector.get_components(key)[0])
-            print(self.components[key])
             self.components[key] += vector.get_components(key)[0]
     
-    
+    def scalar_multiplication(self, multiplier : float):
+        """
+        Multiply a vector by a multiplier
+        """
+        for key in self.components.keys():
+            self.components[key] *= multiplier
