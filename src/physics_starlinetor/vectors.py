@@ -53,6 +53,7 @@ class vector2d:
         module = math.sqrt(sum(map(lambda i: i * i, self.components.values())))
         return module
     
+    #get angle
     def get_angle_2d(self) -> float:
         """
         Returns the angle of a 2d vector
@@ -61,6 +62,8 @@ class vector2d:
         angle = math.atan2(self.components["y"],self.components["x"])
         return angle
     
+    #setters
+    #components
     def set_components(self,*keys_values : tuple[str | float]):
         """
         Sets the components of the vector
@@ -76,7 +79,8 @@ class vector2d:
             if not isinstance(y,float) and not isinstance(y,int):
                 raise ValueError(f"{y} should be type float or int not {type(y)}")
             self.components[x] = y
-            
+
+    #module and angle
     def set_module_angle(self, module : float = 0 , angle : float = 0):
         """
         Set module and angle of a vector
@@ -84,3 +88,14 @@ class vector2d:
         self.components["x"] = module * math.cos(angle)
         self.components["y"] = module * math.sin(angle)
         return self
+    
+    #math functions
+    def add(self,vector : 'vector2d'):
+        """
+        Add vector to current vector, they must have the same components
+        """
+        for key in self.components.keys():
+            self.components[key] += vector.get_components(key)
+            self.components[key] += vector.get_components(key)
+    
+    
