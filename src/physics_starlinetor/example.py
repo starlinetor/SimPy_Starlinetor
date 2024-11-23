@@ -23,3 +23,7 @@ print(speed.get_angle_2d())
 #set components
 speed.set_components(("x",10),("y",23))
 print(speed.components)
+
+#set module angle
+speed.set_module_angle(10,6)
+print(speed.components)

@@ -1,8 +1,5 @@
 import math
 
-from numpy import append
-
-
 class vector2d:
     
     #data
@@ -79,3 +76,11 @@ class vector2d:
             if not isinstance(y,float) and not isinstance(y,int):
                 raise ValueError(f"{y} should be type float or int not {type(y)}")
             self.components[x] = y
+            
+    def set_module_angle(self, module : float = 0 , angle : float = 0):
+        """
+        Set module and angle of a vector
+        """
+        self.components["x"] = module * math.cos(angle)
+        self.components["y"] = module * math.sin(angle)
+        return self
