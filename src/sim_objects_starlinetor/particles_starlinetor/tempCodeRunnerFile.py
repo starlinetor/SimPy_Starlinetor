@@ -1,1 +1,2 @@
-delta_t
+
+        #print(self.particle_1.position.get_components("y"))

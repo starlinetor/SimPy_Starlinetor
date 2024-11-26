@@ -1,3 +1,4 @@
+from copy import copy, deepcopy
 from physics_starlinetor.vectors import vector2d
 
 class particle:
@@ -33,16 +34,16 @@ class particle:
         This function updates position and speed using acceleration only.\n
         update() calls this function by default if the mass is 0
         """
-        # delta v = v + a * delta t
-        print(self.acceleration.components)
-        self.acceleration.scalar_multiplication(self.delta_t)
-        print(self.acceleration.components)
-        #TODO this is not adding stuff
-        self.speed.vector_addition(self.acceleration)
-        print(self.speed.components)
-        # delta x = x + v * delta t
-        self.speed.scalar_multiplication(self.delta_t)
-        self.position.vector_addition(self.speed)
+        # delta v = a * delta t
+        delta_v  : vector2d = deepcopy(self.acceleration)
+        delta_v.scalar_multiplication(self.delta_t)
+        self.speed.vector_addition(delta_v)
+        
+        # delta p = v * delta t
+        delta_p : vector2d = deepcopy(self.speed)
+        delta_p.scalar_multiplication(self.delta_t)
+        self.position.vector_addition(delta_p)
+        
         #clear vectors
         self.force.clear_vector()
         self.acceleration.clear_vector()
