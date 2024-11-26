@@ -23,6 +23,30 @@ Then create a while loop and inside run framerate."chose function()". These are 
 ### basic
 This will execute your code following your taget_fps parameter. But if the code is too slow it will just slow down. 
 
+# physics_starlinetor
+Useful physics related utilities
+
+## vector2d
+Basic 2d vectors
+
+### Initialization
+from_x_y : enter the x and y component
+from_module_angle : enter a module and an angle. Angles are in radiant. 0 is to the right, pi/2 is to the top. 
+
+### getters
+get_components : takes as argument the name of a component - for 2d vectors the defaults are "x" and "y" and returns theyr value
+get_module : returns the module
+get_angle_2d : specific for the vector 2d, returns the angle, works the same as the initialization
+
+#setters
+set_x_y
+set_module_angle
+clear_vector : sets all the components to zero
+
+#vectors operations
+vector_addition : adds a vector to the vector (instance function)
+scalar_multiplication : multiplies a vector by a scalar (instance function)
+
 # sim_objects_starlinetor
 A bunch of usefull objects for physics simulations.
 Each object has an update() and "yet to be defigned" functions.
