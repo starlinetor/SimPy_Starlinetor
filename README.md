@@ -38,12 +38,12 @@ get_components : takes as argument the name of a component - for 2d vectors the 
 get_module : returns the module
 get_angle_2d : specific for the vector 2d, returns the angle, works the same as the initialization
 
-#setters
+### setters
 set_x_y
 set_module_angle
 clear_vector : sets all the components to zero
 
-#vectors operations
+### vectors operations
 vector_addition : adds a vector to the vector (instance function)
 scalar_multiplication : multiplies a vector by a scalar (instance function)
 
