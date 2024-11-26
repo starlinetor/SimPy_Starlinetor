@@ -1,10 +1,10 @@
-from copy import copy, deepcopy
+from copy import deepcopy
 from physics_starlinetor.vectors import vector2d
 
 class particle:
     """
     Basic particle with only position, speed, acceleration and force as parameters\n
-    Mass is an optional parameter, if unused use acceleration only instead of the force
+    Mass is an optional parameter, if unused forces will be ignored
     """
     #class variables
     def __init__(self, position : vector2d, speed : vector2d, delta_t : float, mass = 0):
@@ -50,7 +50,8 @@ class particle:
         
     def update(self):
         """
-        Function to be called at the end of a frame to update the particle position and speed
+        Function to be called at the end of a frame to update the particle position and speed\n
+        This function already takes in account delta_t
         """
         if self.mass == 0: 
             self.update_acceleration_only()
