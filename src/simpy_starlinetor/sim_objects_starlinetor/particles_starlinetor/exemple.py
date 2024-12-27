@@ -1,6 +1,6 @@
-import particle
-import framerate_starlinetor.framerate as fr
-from physics_starlinetor.vectors import vector2d
+from simpy_starlinetor.sim_objects_starlinetor.particles_starlinetor.particle import *
+import simpy_starlinetor.framerate_starlinetor.framerate as fr
+from simpy_starlinetor.physics_starlinetor.vectors import *
 
 class gravity_sim():
     

@@ -1,4 +1,4 @@
-from framerate import frame_handler
+from simpy_starlinetor.framerate_starlinetor.framerate import *
 
 class exemple_class :
     

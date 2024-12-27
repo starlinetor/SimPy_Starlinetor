@@ -1,5 +1,5 @@
 import math
-from vectors import vector2d
+from simpy_starlinetor.physics_starlinetor.vectors import * 
 
 #empty vector
 speed = vector2d()

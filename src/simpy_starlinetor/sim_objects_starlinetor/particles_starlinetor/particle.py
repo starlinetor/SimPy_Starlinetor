@@ -1,22 +1,31 @@
 from copy import deepcopy
-from physics_starlinetor.vectors import vector2d
+from simpy_starlinetor.physics_starlinetor.vectors import *
 
 class particle:
     """
     Basic particle with only position, speed, acceleration and force as parameters\n
     Mass is an optional parameter, if unused forces will be ignored
+    delta_t is the time step for a simulation step
     """
     #class variables
     def __init__(self, position : vector2d, speed : vector2d, delta_t : float, mass = 0):
-        self.position = position
-        self.speed = speed
-        self.mass = mass
-        self.delta_t = delta_t
+        self.position : vector2d = position
+        self.speed : vector2d = speed
+        self.mass : float = mass
+        self.delta_t : float = delta_t
         #these values are only used to calculate how the particle will behave in the next frame
         #these are not supposed to be modified directly or acessed in any way 
         self.acceleration = vector2d.from_x_y(0,0)
         self.force = vector2d.from_x_y(0,0)
 
+    #getters
+    def get_position(self) -> vector2d:
+        """
+        Returns the position of the particle as a vector 2d
+        """
+        return self.position
+
+    #add forces
     def add_force(self, force : vector2d):
         """
         Adds a force to the particle

@@ -45,6 +45,18 @@ class vector2d:
             components_list.append(self.components[key])
         return tuple(components_list)
     
+    def get_x(self) -> float:
+        """
+        return the x component
+        """
+        return self.components["x"]
+
+    def get_y(self) -> float:
+        """
+        return the y component
+        """
+        return self.components["y"]
+    
     #module
     def get_module(self) -> float:
         """
