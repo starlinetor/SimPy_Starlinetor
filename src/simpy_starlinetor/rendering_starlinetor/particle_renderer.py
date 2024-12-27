@@ -35,6 +35,7 @@ class particle_renderer_2d:
         self.root = tk.Tk()
         self.canvas = tk.Canvas(self.root, bg="white",height=1080, width=1920)
         self.canvas.pack()
+        self.root.attributes("-fullscreen",self.full_screen_var)
         
         #mapping of all keys
         #f11 fullscreen
