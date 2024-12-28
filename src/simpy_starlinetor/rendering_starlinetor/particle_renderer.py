@@ -29,19 +29,35 @@ class particle_renderer_2d:
         self.zoom_changed = True
         #doubles or divides the zoom
     
+    def start_move_camera(self,event):
+        """
+        Saves starting position when dragging the mouse
+        """
+        self.left_click = vector2d().from_x_y(event.x, event.y).scalar_multiplication(1/self.zoom)
+    
+    def move_camera(self, event):
+        """
+        Move the camera when dragging the mouse
+        """
+        #get the delta
+        temp_left_click : vector2d = vector2d().from_x_y(event.x, event.y).scalar_multiplication(1/self.zoom)
+        camera_delta = temp_left_click.vector_addition(self.left_click.scalar_multiplication(-1)).scalar_multiplication(-1)
+        self.left_click = copy.deepcopy(temp_left_click)
+        #add the delta to the camera position
+        self.camera = self.camera.vector_addition(camera_delta)
+    
     def __init__(self, particles : list[particle], resolution : vector2d, particle_radius : float):
         """
         Functionality:
         R to reset to 0/0 and 100% zoom
-        mouse wheel to edit the zoom
-        TODO Move around : ability to move around, this needs some type of chamera position
-            left click drag
-        TODO Render particles : draws circle where particles should be
+        Mouse wheel to edit the zoom
+        Drag left click to move the camera
         F11 -> full screen
         """
         #rendering variables
         self.particles : list[particle] = particles
         self.camera : vector2d = vector2d().from_x_y(0,0)
+        self.left_click : vector2d = vector2d()
         #at 100% zoom the resolution is fully rappresented. 
         self.zoom : float = 1
         self.zoom_changed : bool = False
@@ -65,6 +81,9 @@ class particle_renderer_2d:
         self.root.bind("<r>", self.reset_camera)
         #scroll wheel -> zoom
         self.root.bind("<MouseWheel>", self.edit_zoom)
+        #drag the camera with left click
+        self.root.bind("<Button-1>", self.start_move_camera)
+        self.root.bind("<B1-Motion>", self.move_camera)
         
         #initialize particles
         #stores the id of each particle
