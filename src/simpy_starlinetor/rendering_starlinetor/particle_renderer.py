@@ -6,14 +6,32 @@ from simpy_starlinetor.sim_objects_starlinetor.particles_starlinetor.particle im
 class particle_renderer_2d:
     
     def full_screen(self, eventorigin):
+        """
+        Sets the screen to full screen
+        """
         self.full_screen_var = not self.full_screen_var
         self.root.attributes("-fullscreen",self.full_screen_var)
     
     def reset_camera(self, eventorigin):
+        """
+        Resets the camera to 0,0 and to 100% zoom
+        """
         #TODO remove once implemented
         print("Reset camera")
         self.camera = vector2d()
         self.zoom = 100
+    
+    def edit_zoom(self, event):
+        """
+        Changes the zoom
+        """
+        #TODO test to see if its too fast of a zoom
+
+        self.zoom *= math.pow(2 , event.delta / 120 )
+        #doubles or divides the zoom
+        
+        #TODO remove once implemented
+        print(self.zoom)
     
     def __init__(self, particles : list[particle], resolution : vector2d, particle_radius : float):
         """
@@ -31,7 +49,7 @@ class particle_renderer_2d:
         self.particles : list[particle] = particles
         self.camera : vector2d = vector2d().from_x_y(0,0)
         #at 100% zoom the resolution is fully rappresented. 
-        self.zoom : int = 100
+        self.zoom : float = 100
         #this rappresents the radius of particles, is based on the simulation size and not rendering size
         self.particle_radius : float = particle_radius
         #full screen
@@ -48,6 +66,8 @@ class particle_renderer_2d:
         self.root.bind("<F11>", self.full_screen)
         #r reset
         self.root.bind("<r>", self.reset_camera)
+        #scroll wheel -> zoom
+        self.root.bind("<MouseWheel>", self.edit_zoom)
         
         #initialize particles
         #stores the id of each particle
