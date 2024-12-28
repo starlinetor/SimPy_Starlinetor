@@ -9,6 +9,12 @@ class particle_renderer_2d:
         self.full_screen_var = not self.full_screen_var
         self.root.attributes("-fullscreen",self.full_screen_var)
     
+    def reset_camera(self, eventorigin):
+        #TODO remove once implemented
+        print("Reset camera")
+        self.camera = vector2d()
+        self.zoom = 100
+    
     def __init__(self, particles : list[particle], resolution : vector2d, particle_radius : float):
         """
         Functionality:
@@ -40,6 +46,8 @@ class particle_renderer_2d:
         #mapping of all keys
         #f11 fullscreen
         self.root.bind("<F11>", self.full_screen)
+        #r reset
+        self.root.bind("<r>", self.reset_camera)
         
         #initialize particles
         #stores the id of each particle
