@@ -8,9 +8,14 @@ class gravity_sim():
     def __init__(self):
         self.g = -100
         self.delta_t = 1/3600
-        self.particle_1 : particle = particle(position = vector2d.from_x_y(100,800), speed = vector2d.from_x_y(100,-400), delta_t=self.delta_t)
-        self.particles = [self.particle_1, particle(vector2d(), vector2d(), 0)]
-        self.pr2d = particle_renderer_2d(self.particles, vector2d(), 10)
+        self.particle_1 : particle = particle(position = vector2d.from_x_y(0,0), speed = vector2d.from_x_y(0,0), delta_t=self.delta_t)
+        self.particles = [self.particle_1, 
+                        particle(position = vector2d.from_x_y(-100,-100), speed = vector2d.from_x_y(0,0), delta_t=self.delta_t),
+                        particle(position = vector2d.from_x_y(100,-100), speed = vector2d.from_x_y(0,0), delta_t=self.delta_t),
+                        particle(position = vector2d.from_x_y(-100,100), speed = vector2d.from_x_y(0,0), delta_t=self.delta_t),
+                        particle(position = vector2d.from_x_y(100,100), speed = vector2d.from_x_y(0,0), delta_t=self.delta_t),
+                        ]
+        self.pr2d = particle_renderer_2d(self.particles, vector2d().from_x_y(1920,1080), 10)
     
     def start(self):
         return

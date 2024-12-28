@@ -1,4 +1,4 @@
-from copy import deepcopy
+from copy import *
 from simpy_starlinetor.physics_starlinetor.vectors import *
 
 class particle:
@@ -23,20 +23,20 @@ class particle:
         """
         Returns the position of the particle as a vector 2d
         """
-        return self.position
+        return deepcopy(self.position)
 
     #add forces
     def add_force(self, force : vector2d):
         """
         Adds a force to the particle
         """
-        self.force.vector_addition(force)
+        self.force = self.force.vector_addition(force)
     
     def add_acceleration(self, acceleration : vector2d):
         """
         Adds an acceleration to the particle
         """
-        self.acceleration.vector_addition(acceleration)
+        self.acceleration = self.acceleration.vector_addition(acceleration)
     
     def update_acceleration_only(self):
         """
@@ -45,13 +45,13 @@ class particle:
         """
         # delta v = a * delta t
         delta_v  : vector2d = deepcopy(self.acceleration)
-        delta_v.scalar_multiplication(self.delta_t)
-        self.speed.vector_addition(delta_v)
+        delta_v = delta_v.scalar_multiplication(self.delta_t)
+        self.speed = self.speed.vector_addition(delta_v)
         
         # delta p = v * delta t
         delta_p : vector2d = deepcopy(self.speed)
-        delta_p.scalar_multiplication(self.delta_t)
-        self.position.vector_addition(delta_p)
+        delta_p = delta_p.scalar_multiplication(self.delta_t)
+        self.position = self.position.vector_addition(delta_p)
         
         #clear vectors
         self.force.clear_vector()
@@ -66,5 +66,5 @@ class particle:
             self.update_acceleration_only()
         else:
             #total a = a + total force / m
-            self.acceleration.vector_addition(self.force.scalar_multiplication(1/self.mass))
+            self.acceleration = self.acceleration.vector_addition(self.force.scalar_multiplication(1/self.mass))
             self.update_acceleration_only()

@@ -16,8 +16,6 @@ class particle_renderer_2d:
         """
         Resets the camera to 0,0 and to 100% zoom
         """
-        #TODO remove once implemented
-        print("Reset camera")
         self.camera = vector2d()
         self.zoom = 1
     
@@ -29,9 +27,6 @@ class particle_renderer_2d:
 
         self.zoom *= math.pow(2 , event.delta / 120 )
         #doubles or divides the zoom
-        
-        #TODO remove once implemented
-        print(self.zoom)
     
     def __init__(self, particles : list[particle], resolution : vector2d, particle_radius : float):
         """
@@ -52,11 +47,12 @@ class particle_renderer_2d:
         self.particle_radius : float = particle_radius
         #full screen
         self.full_screen_var = True
-        #
+        #resolution
+        self.resolution : vector2d = resolution
         
         #initialize tk
         self.root = tk.Tk()
-        self.canvas = tk.Canvas(self.root, bg="white",height=1080, width=1920)
+        self.canvas = tk.Canvas(self.root, bg="white",height=resolution.get_y(), width=self.resolution.get_x())
         self.canvas.pack()
         self.root.attributes("-fullscreen",self.full_screen_var)
         
@@ -79,11 +75,20 @@ class particle_renderer_2d:
         """"
         Renders the new frame
         """
-        #TODO WIT
+        
+        self.resolution = vector2d().from_x_y(self.canvas.winfo_width(), self.canvas.winfo_height())
+        
+        #TODO Edit the size of particles
         #move particles
         for i in range(len(self.particles)):
+            particle_camera_cords : vector2d = world_to_camera( self.particles[i].get_position(),
+                                                                self.camera,
+                                                                self.zoom,
+                                                                self.resolution
+                                                                )
+            
             self.canvas.moveto( self.tk_particles[i],
-                                self.particles[i].get_position().get_x() - self.particle_radius,
-                                self.particles[i].get_position().get_y() - self.particle_radius)
+                                particle_camera_cords.get_x() - self.particle_radius * self.zoom,
+                                particle_camera_cords.get_y() - self.particle_radius * self.zoom)
         #update canvas
         self.root.update()

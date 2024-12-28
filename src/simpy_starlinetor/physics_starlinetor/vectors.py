@@ -1,3 +1,4 @@
+import copy
 import math
 
 class vector2d:
@@ -112,14 +113,18 @@ class vector2d:
     #vectors operation
     def vector_addition(self, vector : 'vector2d'):
         """
-        Add vector to current vector, they must have the same components
+        Returns the sum of the two vectors
         """
-        for key in self.components.keys():
-            self.components[key] += vector.get_components(key)[0]
+        add_vector : vector2d = copy.deepcopy(self)
+        for key in add_vector.components.keys():
+            add_vector.components[key] += vector.get_components(key)[0]
+        return add_vector
     
     def scalar_multiplication(self, multiplier : float):
         """
-        Multiply a vector by a multiplier
+        Returns the vector multiplied by a scalar value
         """
-        for key in self.components.keys():
-            self.components[key] *= multiplier
+        multiply_vector : vector2d = copy.deepcopy(self)
+        for key in multiply_vector.components.keys():
+            multiply_vector.components[key] *= multiplier
+        return multiply_vector

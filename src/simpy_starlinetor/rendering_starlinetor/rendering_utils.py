@@ -15,31 +15,37 @@ def tk_create_oval(canvas : tk.Canvas, position : vector2d , radius : float) -> 
     
     return canvas.create_oval(x0,y0,x1,y1)
 
-def world_to_camera(world_point : vector2d, camera_position : vector2d, camera_zoom : float) -> vector2d:
+def world_to_camera(world_point : vector2d, camera_position : vector2d, camera_zoom : float, camera_resolution : vector2d) -> vector2d:
     """
     Turns world cords to camera cords
     At 100% zoom the camera resolution to world coordinates is 1-1
     At 200% is 2-1 and at 50% is 1-2
     The camera position is the position of the camera in the world coordinates
-    Note that this function does not care where the 0,0 of the camera is or the resolution
+    The camera position is anchored to the center
+    The camera coordinates system assumes that 0,0 is the top left
     Given a world position it is returned the camera position rounded
     """
     #By subtracting from the point vector the camera vector we get the position vector relative to the camera position
     point_camera : vector2d =  world_point.vector_addition(camera_position.scalar_multiplication(-1))
     #We scale the vector based on the zoom 
-    point_camera.scalar_multiplication(camera_zoom)
+    point_camera = point_camera.scalar_multiplication(camera_zoom)
+    #we add half of the camera resolution change the 0,0 from the center to the top left
+    point_camera = point_camera.vector_addition(camera_resolution.scalar_multiplication(0.5))
     #return to closests integer
-    return vector2d().from_x_y(round(point_camera.get_x()), round(point_camera.get_y))
+    return vector2d().from_x_y(round(point_camera.get_x()), round(point_camera.get_y()))
 
-def camera_to_world(camera_point : vector2d, camera_position : vector2d, camera_zoom : float) -> vector2d:
+def camera_to_world(camera_point : vector2d, camera_position : vector2d, camera_zoom : float, camera_resolution : vector2d) -> vector2d:
     """
     Turn camera cords to world cords
     At 100% zoom the camera resolution to world coordinates is 1-1
     At 200% is 2-1 and at 50% is 1-2
     The camera position is the position of the camera in the world coordinates
-    Note that this function does not care where the 0,0 of the camera is or the resolution
+    The camera position is anchored to the center
+    The camera coordinates system assumes that 0,0 is the top left
     Given a camera position it is returned the world position not rounded
     """
+    #we move the center back to 0,0 from the top left by removing half of the size of the camera
+    camera_point = camera_point.vector_addition(camera_resolution.scalar_multiplication(-0.5))
     #scale down the vector based on the zoom
     #here is inverted because we are going backwards
     scaled_camera_point : vector2d = camera_point.scalar_multiplication(1/camera_zoom)
