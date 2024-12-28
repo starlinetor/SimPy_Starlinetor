@@ -1,4 +1,6 @@
 import tkinter as tk
+
+from numpy import average
 from simpy_starlinetor.physics_starlinetor.vectors import *
 
 def tk_create_oval(canvas : tk.Canvas, position : vector2d , radius : float) -> int:
@@ -14,6 +16,22 @@ def tk_create_oval(canvas : tk.Canvas, position : vector2d , radius : float) -> 
     y1 = int(position.get_y() + radius)
     
     return canvas.create_oval(x0,y0,x1,y1)
+
+def resize_oval(canvas : tk.Canvas, id, radius : float, zoom : float) -> None:
+    """
+    Resizes an oval based on the zoom
+    """
+    #get coords of the oval
+    x0,y0,x1,y1 = canvas.coords(id)
+    #get the center
+    xc, yc = average([x0,x1]), average([y0,y1])
+    #update cords based on the zoom and radius
+    x0 = int(xc - radius * zoom)
+    x1 = int(xc + radius * zoom)
+    y0 = int(yc - radius * zoom)
+    y1 = int(yc + radius * zoom)
+    #change cords
+    canvas.coords(id,x0,y0,x1,y1)
 
 def world_to_camera(world_point : vector2d, camera_position : vector2d, camera_zoom : float, camera_resolution : vector2d) -> vector2d:
     """

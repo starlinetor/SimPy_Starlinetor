@@ -18,14 +18,15 @@ class particle_renderer_2d:
         """
         self.camera = vector2d()
         self.zoom = 1
+        self.zoom_changed = True
     
     def edit_zoom(self, event):
         """
         Changes the zoom
         """
-        #TODO test to see if its too fast of a zoom
-
         self.zoom *= math.pow(2 , event.delta / 120 )
+        #a bit of optimization
+        self.zoom_changed = True
         #doubles or divides the zoom
     
     def __init__(self, particles : list[particle], resolution : vector2d, particle_radius : float):
@@ -43,6 +44,7 @@ class particle_renderer_2d:
         self.camera : vector2d = vector2d().from_x_y(0,0)
         #at 100% zoom the resolution is fully rappresented. 
         self.zoom : float = 1
+        self.zoom_changed : bool = False
         #this rappresents the radius of particles, is based on the simulation size and not rendering size
         self.particle_radius : float = particle_radius
         #full screen
@@ -77,18 +79,23 @@ class particle_renderer_2d:
         """
         
         self.resolution = vector2d().from_x_y(self.canvas.winfo_width(), self.canvas.winfo_height())
-        
-        #TODO Edit the size of particles
+    
         #move particles
         for i in range(len(self.particles)):
+            #get camera cords from world cords
             particle_camera_cords : vector2d = world_to_camera( self.particles[i].get_position(),
                                                                 self.camera,
                                                                 self.zoom,
                                                                 self.resolution
                                                                 )
-            
+            #move objects
             self.canvas.moveto( self.tk_particles[i],
                                 particle_camera_cords.get_x() - self.particle_radius * self.zoom,
                                 particle_camera_cords.get_y() - self.particle_radius * self.zoom)
+            #resize objects
+            if self.zoom_changed:
+                resize_oval(self.canvas,self.tk_particles[i], self.particle_radius, self.zoom)
+        #set zoom changed to false
+        self.zoom_changed = False
         #update canvas
         self.root.update()
