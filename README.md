@@ -1,3 +1,5 @@
+DISCONTINUED : POOR PERFORMANCE
+
 Multi pourpose functions for simulations
 
 # framerate_starlinetor
