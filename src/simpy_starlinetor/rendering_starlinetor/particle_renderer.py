@@ -19,7 +19,7 @@ class particle_renderer_2d:
         #TODO remove once implemented
         print("Reset camera")
         self.camera = vector2d()
-        self.zoom = 100
+        self.zoom = 1
     
     def edit_zoom(self, event):
         """
@@ -37,11 +37,9 @@ class particle_renderer_2d:
         """
         Functionality:
         R to reset to 0/0 and 100% zoom
-        TODO Zoom : starting zoom is 100%
-            scroll wheel 
+        mouse wheel to edit the zoom
         TODO Move around : ability to move around, this needs some type of chamera position
             left click drag
-        TODO Adaptive resolution : this means that the rendering will be separated from the resolution
         TODO Render particles : draws circle where particles should be
         F11 -> full screen
         """
@@ -49,11 +47,12 @@ class particle_renderer_2d:
         self.particles : list[particle] = particles
         self.camera : vector2d = vector2d().from_x_y(0,0)
         #at 100% zoom the resolution is fully rappresented. 
-        self.zoom : float = 100
+        self.zoom : float = 1
         #this rappresents the radius of particles, is based on the simulation size and not rendering size
         self.particle_radius : float = particle_radius
         #full screen
         self.full_screen_var = True
+        #
         
         #initialize tk
         self.root = tk.Tk()
